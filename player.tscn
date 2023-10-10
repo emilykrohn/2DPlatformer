@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://l5erdx8idycd"]
+[gd_scene load_steps=8 format=3 uid="uid://l5erdx8idycd"]
 
 [ext_resource type="Texture2D" uid="uid://b1nxrfnqhbpjx" path="res://Art/Player/tile_0304.png" id="1_gqipk"]
+[ext_resource type="Script" path="res://player.gd" id="1_j76q0"]
 [ext_resource type="Texture2D" uid="uid://c8dsrkyqghw67" path="res://Art/Player/tile_0301.png" id="2_6odpq"]
 [ext_resource type="Texture2D" uid="uid://c6sai2ihk4l03" path="res://Art/Player/tile_0302.png" id="3_imwn8"]
 [ext_resource type="Texture2D" uid="uid://cyt312tdund1v" path="res://Art/Player/tile_0303.png" id="4_gnen7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jfb1d"]
+radius = 6.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n3wwb"]
 animations = [{
@@ -38,8 +40,10 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_j76q0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_jfb1d")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
