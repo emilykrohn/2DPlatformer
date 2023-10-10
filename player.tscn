@@ -47,6 +47,6 @@ position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_jfb1d")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.431373, 0.411765, 0.94902, 1)
 sprite_frames = SubResource("SpriteFrames_n3wwb")
-animation = &"walk"
-frame_progress = 0.899007
+animation = &"stand"
