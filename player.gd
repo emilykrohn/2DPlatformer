@@ -28,6 +28,7 @@ func _physics_process(delta):
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction:
+		$AnimatedSprite2D.flip_h = velocity.x < 0
 		velocity.x = move_toward(velocity.x, SPEED * direction, ACCELERATION * delta)
 		is_walking = true
 	else:
@@ -38,7 +39,7 @@ func _physics_process(delta):
 	
 	if is_jumping:
 		$AnimatedSprite2D.animation = "jump"
-	elif is_walking:
+	if is_walking:
 		$AnimatedSprite2D.animation = "walk"
 
 	move_and_slide()
