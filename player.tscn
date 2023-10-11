@@ -50,3 +50,4 @@ shape = SubResource("CircleShape2D_jfb1d")
 modulate = Color(0.431373, 0.411765, 0.94902, 1)
 sprite_frames = SubResource("SpriteFrames_n3wwb")
 animation = &"walk"
+frame_progress = 0.622913
