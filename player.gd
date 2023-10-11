@@ -15,7 +15,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _physics_process(delta):
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor() and not get_node("../Ladder").can_climb:
 		velocity.y += gravity * delta
 		
 	if velocity.length() > 0:
