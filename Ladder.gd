@@ -6,7 +6,7 @@ var can_climb := false
 func _physics_process(delta):
 	if Input.is_action_pressed("ui_up") and can_climb:
 		get_node("../Player").global_position += Vector2.UP * CLIMB_SPEED
-	if Input.is_action_pressed("ui_down") and can_climb:
+	if Input.is_action_pressed("ui_down") and can_climb and not get_node("../Player").is_on_floor():
 		get_node("../Player").global_position += Vector2.DOWN * CLIMB_SPEED
 
 func _on_area_2d_body_entered(body):
