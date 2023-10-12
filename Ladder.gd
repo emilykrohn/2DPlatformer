@@ -4,7 +4,7 @@ const CLIMB_SPEED = 5
 var can_climb := false
 var at_top := false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_pressed("ui_up") and can_climb and not at_top:
 		get_node("../Player").global_position += Vector2.UP * CLIMB_SPEED
 	if Input.is_action_pressed("ui_down") and can_climb and not get_node("../Player").is_on_floor():
