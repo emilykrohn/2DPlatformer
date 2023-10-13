@@ -8,10 +8,21 @@ const FRICTION = 1400
 
 var is_walking := false
 var is_jumping := false
+var can_take_damage := true
+
+var health := 10
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+func delay_damage():
+	await get_tree().create_timer(1).timeout
+	can_take_damage = true
+
+func damage_player(amount):
+	if health > 0:
+		health -= amount
+		can_take_damage = false
 
 func _physics_process(delta):
 	# Add the gravity.
