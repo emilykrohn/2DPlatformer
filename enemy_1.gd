@@ -12,7 +12,6 @@ func _process(delta):
 	if damage_player and get_node("../Player").can_take_damage:
 		get_node("../Player").damage_player(1)
 		get_node("../Player").delay_damage()
-		print(get_node("../Player").health)
 
 
 func _on_area_2d_body_entered(body):
