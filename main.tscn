@@ -1298,3 +1298,4 @@ shape = SubResource("RectangleShape2D_ttajl")
 [connection signal="body_entered" from="Ladder/LadderTop" to="Ladder" method="_on_ladder_top_body_entered"]
 [connection signal="body_exited" from="Ladder/LadderTop" to="Ladder" method="_on_ladder_top_body_exited"]
 [connection signal="body_entered" from="FirstSpikePit" to="FirstSpikePit" method="_on_body_entered"]
+[connection signal="body_exited" from="FirstSpikePit" to="FirstSpikePit" method="_on_body_exited"]
