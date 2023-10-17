@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://beqsqlhjgg1ma"]
+[gd_scene load_steps=16 format=3 uid="uid://beqsqlhjgg1ma"]
 
 [ext_resource type="Texture2D" uid="uid://cnk564dw3s6vl" path="res://Art/Tilemap/monochrome_tilemap_transparent_packed.png" id="1_c36dr"]
 [ext_resource type="PackedScene" uid="uid://l5erdx8idycd" path="res://player.tscn" id="2_shmwn"]
 [ext_resource type="Script" path="res://Ladder.gd" id="3_iuvrq"]
 [ext_resource type="PackedScene" uid="uid://d4cutbqeq7tv3" path="res://enemy_1.tscn" id="4_sv820"]
 [ext_resource type="PackedScene" uid="uid://c7u6jwle54str" path="res://hud.tscn" id="5_nians"]
+[ext_resource type="Script" path="res://FirstSpikePit.gd" id="6_yfimx"]
+[ext_resource type="Script" path="res://SecondSpikePit.gd" id="7_osgc5"]
+[ext_resource type="Script" path="res://ThirdSpikePit.gd" id="8_5j018"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_td8sm"]
 texture = ExtResource("1_c36dr")
@@ -1246,6 +1249,14 @@ size = Vector2(14, 171)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iaboc"]
 size = Vector2(14, 5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ttajl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fue25"]
+size = Vector2(179, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jdd5e"]
+size = Vector2(471, 54)
+
 [node name="Main" type="Node"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -1281,7 +1292,37 @@ limit_bottom = 65
 
 [node name="HUD" parent="Player" instance=ExtResource("5_nians")]
 
+[node name="FirstSpikePit" type="Area2D" parent="."]
+position = Vector2(608, 17)
+scale = Vector2(16.36, 0.558309)
+script = ExtResource("6_yfimx")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FirstSpikePit"]
+shape = SubResource("RectangleShape2D_ttajl")
+
+[node name="SecondSpikePit" type="Area2D" parent="."]
+script = ExtResource("7_osgc5")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SecondSpikePit"]
+position = Vector2(1143.5, -115)
+shape = SubResource("RectangleShape2D_fue25")
+
+[node name="ThirdSpikePit" type="Area2D" parent="."]
+script = ExtResource("8_5j018")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ThirdSpikePit"]
+position = Vector2(1815.5, -28)
+shape = SubResource("RectangleShape2D_jdd5e")
+
 [connection signal="body_entered" from="Ladder/Area2D" to="Ladder" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Ladder/Area2D" to="Ladder" method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="Ladder/LadderTop" to="Ladder" method="_on_ladder_top_body_entered"]
 [connection signal="body_exited" from="Ladder/LadderTop" to="Ladder" method="_on_ladder_top_body_exited"]
+[connection signal="body_entered" from="FirstSpikePit" to="FirstSpikePit" method="_on_body_entered"]
+[connection signal="body_exited" from="FirstSpikePit" to="FirstSpikePit" method="_on_body_exited"]
+[connection signal="body_entered" from="SecondSpikePit" to="SecondSpikePit" method="_on_body_entered"]
+[connection signal="body_exited" from="SecondSpikePit" to="SecondSpikePit" method="_on_body_exited"]
+[connection signal="body_entered" from="ThirdSpikePit" to="ThirdSpikePit" method="_on_body_entered"]
+[connection signal="body_exited" from="ThirdSpikePit" to="ThirdSpikePit" method="_on_body_exited"]
