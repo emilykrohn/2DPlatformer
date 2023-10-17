@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://beqsqlhjgg1ma"]
+[gd_scene load_steps=14 format=3 uid="uid://beqsqlhjgg1ma"]
 
 [ext_resource type="Texture2D" uid="uid://cnk564dw3s6vl" path="res://Art/Tilemap/monochrome_tilemap_transparent_packed.png" id="1_c36dr"]
 [ext_resource type="PackedScene" uid="uid://l5erdx8idycd" path="res://player.tscn" id="2_shmwn"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d4cutbqeq7tv3" path="res://enemy_1.tscn" id="4_sv820"]
 [ext_resource type="PackedScene" uid="uid://c7u6jwle54str" path="res://hud.tscn" id="5_nians"]
 [ext_resource type="Script" path="res://FirstSpikePit.gd" id="6_yfimx"]
+[ext_resource type="Script" path="res://SecondSpikePit.gd" id="7_osgc5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_td8sm"]
 texture = ExtResource("1_c36dr")
@@ -1249,6 +1250,9 @@ size = Vector2(14, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ttajl"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fue25"]
+size = Vector2(179, 8)
+
 [node name="Main" type="Node"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -1293,9 +1297,19 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FirstSpikePit"]
 shape = SubResource("RectangleShape2D_ttajl")
 
+[node name="SecondSpikePit" type="Area2D" parent="."]
+script = ExtResource("7_osgc5")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SecondSpikePit"]
+position = Vector2(1143.5, -115)
+shape = SubResource("RectangleShape2D_fue25")
+
 [connection signal="body_entered" from="Ladder/Area2D" to="Ladder" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Ladder/Area2D" to="Ladder" method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="Ladder/LadderTop" to="Ladder" method="_on_ladder_top_body_entered"]
 [connection signal="body_exited" from="Ladder/LadderTop" to="Ladder" method="_on_ladder_top_body_exited"]
 [connection signal="body_entered" from="FirstSpikePit" to="FirstSpikePit" method="_on_body_entered"]
 [connection signal="body_exited" from="FirstSpikePit" to="FirstSpikePit" method="_on_body_exited"]
+[connection signal="body_entered" from="SecondSpikePit" to="SecondSpikePit" method="_on_body_entered"]
+[connection signal="body_exited" from="SecondSpikePit" to="SecondSpikePit" method="_on_body_exited"]
