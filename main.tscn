@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://beqsqlhjgg1ma"]
+[gd_scene load_steps=17 format=3 uid="uid://beqsqlhjgg1ma"]
 
 [ext_resource type="Texture2D" uid="uid://cnk564dw3s6vl" path="res://Art/Tilemap/monochrome_tilemap_transparent_packed.png" id="1_c36dr"]
 [ext_resource type="PackedScene" uid="uid://l5erdx8idycd" path="res://player.tscn" id="2_shmwn"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://FirstSpikePit.gd" id="6_yfimx"]
 [ext_resource type="Script" path="res://SecondSpikePit.gd" id="7_osgc5"]
 [ext_resource type="Script" path="res://ThirdSpikePit.gd" id="8_5j018"]
+[ext_resource type="PackedScene" uid="uid://cvp2og0tb8js1" path="res://coin.tscn" id="9_gtul8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_td8sm"]
 texture = ExtResource("1_c36dr")
@@ -1315,6 +1316,23 @@ script = ExtResource("8_5j018")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ThirdSpikePit"]
 position = Vector2(1815.5, -28)
 shape = SubResource("RectangleShape2D_jdd5e")
+
+[node name="Coins" type="Node" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("9_gtul8")]
+position = Vector2(840, -233)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("9_gtul8")]
+position = Vector2(888, -265)
+
+[node name="Coin3" parent="Coins" instance=ExtResource("9_gtul8")]
+position = Vector2(936, -280)
+
+[node name="Coin4" parent="Coins" instance=ExtResource("9_gtul8")]
+position = Vector2(984, -295)
+
+[node name="Coin5" parent="Coins" instance=ExtResource("9_gtul8")]
+position = Vector2(1032, -279)
 
 [connection signal="body_entered" from="Ladder/Area2D" to="Ladder" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Ladder/Area2D" to="Ladder" method="_on_area_2d_body_exited"]
