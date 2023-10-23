@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://beqsqlhjgg1ma"]
+[gd_scene load_steps=21 format=3 uid="uid://beqsqlhjgg1ma"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_1ie5j"]
 [ext_resource type="Texture2D" uid="uid://cnk564dw3s6vl" path="res://Art/Tilemap/monochrome_tilemap_transparent_packed.png" id="1_c36dr"]
@@ -1266,6 +1266,12 @@ _data = {
 }
 point_count = 3
 
+[sub_resource type="Curve2D" id="Curve2D_ierru"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 473, -118, 0, 0, 0, 0, 476, -5, 0, 0, 0, 0, 473, -118)
+}
+point_count = 3
+
 [node name="Main" type="Node"]
 script = ExtResource("1_1ie5j")
 
@@ -1350,8 +1356,16 @@ rotates = false
 [node name="Enemy1" parent="Enemy1Path/PathFollow2D" instance=ExtResource("4_sv820")]
 lock_rotation = true
 
-[node name="FlyingEnemy" parent="." instance=ExtResource("11_aiqc2")]
-position = Vector2(471, -59)
+[node name="FlyingEnemy1Path" type="Path2D" parent="."]
+curve = SubResource("Curve2D_ierru")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="FlyingEnemy1Path"]
+position = Vector2(473, -118)
+rotation = 1.55728
+rotates = false
+
+[node name="FlyingEnemy" parent="FlyingEnemy1Path/PathFollow2D" instance=ExtResource("11_aiqc2")]
+rotation = 4.71239
 
 [connection signal="body_entered" from="Ladder/Area2D" to="Ladder" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Ladder/Area2D" to="Ladder" method="_on_area_2d_body_exited"]
