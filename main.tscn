@@ -1,5 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://beqsqlhjgg1ma"]
+[gd_scene load_steps=23 format=3 uid="uid://beqsqlhjgg1ma"]
 
+[ext_resource type="Script" path="res://main.gd" id="1_1ie5j"]
 [ext_resource type="Texture2D" uid="uid://cnk564dw3s6vl" path="res://Art/Tilemap/monochrome_tilemap_transparent_packed.png" id="1_c36dr"]
 [ext_resource type="PackedScene" uid="uid://l5erdx8idycd" path="res://player.tscn" id="2_shmwn"]
 [ext_resource type="Script" path="res://Ladder.gd" id="3_iuvrq"]
@@ -9,6 +10,7 @@
 [ext_resource type="Script" path="res://SecondSpikePit.gd" id="7_osgc5"]
 [ext_resource type="Script" path="res://ThirdSpikePit.gd" id="8_5j018"]
 [ext_resource type="PackedScene" uid="uid://cvp2og0tb8js1" path="res://coin.tscn" id="9_gtul8"]
+[ext_resource type="PackedScene" uid="uid://cccandpxrb06s" path="res://flying_enemy.tscn" id="11_aiqc2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_td8sm"]
 texture = ExtResource("1_c36dr")
@@ -1258,7 +1260,32 @@ size = Vector2(179, 8)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jdd5e"]
 size = Vector2(471, 54)
 
+[sub_resource type="Curve2D" id="Curve2D_1ti7v"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 98, -8, 0, 0, 0, 0, 209, -8, 0, 0, 0, 0, 98, -8)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_ierru"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 473, -119, 0, 0, 0, 0, 475, -15, 0, 0, 0, 0, 473, -119)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_qr4mw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -3, -38, 0, 0, 0, 0, -2, 72, 0, 0, 0, 0, -3, -38)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_vwjqv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 685, -174, 0, 0, 0, 0, 688, -45, 0, 0, 0, 0, 685, -174)
+}
+point_count = 3
+
 [node name="Main" type="Node"]
+script = ExtResource("1_1ie5j")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_8ipus")
@@ -1279,9 +1306,6 @@ shape = SubResource("RectangleShape2D_hc5qo")
 [node name="CollisionShap2D" type="CollisionShape2D" parent="Ladder/LadderTop"]
 position = Vector2(761, -235.5)
 shape = SubResource("RectangleShape2D_iaboc")
-
-[node name="Enemy1" parent="." instance=ExtResource("4_sv820")]
-position = Vector2(109, -7)
 
 [node name="Player" parent="." instance=ExtResource("2_shmwn")]
 position = Vector2(61, -8)
@@ -1333,6 +1357,49 @@ position = Vector2(984, -295)
 
 [node name="Coin5" parent="Coins" instance=ExtResource("9_gtul8")]
 position = Vector2(1032, -279)
+
+[node name="EnemyPaths" type="Node" parent="."]
+
+[node name="Enemy1Path" type="Path2D" parent="EnemyPaths" groups=["EnemyPaths"]]
+curve = SubResource("Curve2D_1ti7v")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="EnemyPaths/Enemy1Path"]
+position = Vector2(98, -8)
+rotates = false
+
+[node name="Enemy1" parent="EnemyPaths/Enemy1Path/PathFollow2D" instance=ExtResource("4_sv820")]
+lock_rotation = true
+
+[node name="FlyingEnemy1Path" type="Path2D" parent="EnemyPaths" groups=["EnemyPaths"]]
+curve = SubResource("Curve2D_ierru")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="EnemyPaths/FlyingEnemy1Path"]
+position = Vector2(473, -119)
+rotation = 1.55728
+rotates = false
+
+[node name="FlyingEnemy" parent="EnemyPaths/FlyingEnemy1Path/PathFollow2D" instance=ExtResource("11_aiqc2")]
+
+[node name="FlyingEnemy2Path" type="Path2D" parent="EnemyPaths" groups=["EnemyPaths"]]
+position = Vector2(580, -96)
+curve = SubResource("Curve2D_qr4mw")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="EnemyPaths/FlyingEnemy2Path"]
+position = Vector2(-3, -38)
+rotation = 1.56171
+rotates = false
+
+[node name="FlyingEnemy" parent="EnemyPaths/FlyingEnemy2Path/PathFollow2D" instance=ExtResource("11_aiqc2")]
+
+[node name="FlyingEnemy3Path" type="Path2D" parent="EnemyPaths" groups=["EnemyPaths"]]
+curve = SubResource("Curve2D_vwjqv")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="EnemyPaths/FlyingEnemy3Path"]
+position = Vector2(685, -174)
+rotation = 1.54754
+rotates = false
+
+[node name="FlyingEnemy" parent="EnemyPaths/FlyingEnemy3Path/PathFollow2D" instance=ExtResource("11_aiqc2")]
 
 [connection signal="body_entered" from="Ladder/Area2D" to="Ladder" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Ladder/Area2D" to="Ladder" method="_on_area_2d_body_exited"]
